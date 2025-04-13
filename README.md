@@ -2,6 +2,15 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
 
+## Téma: Számítógép alkatrész összehasonlító
+
+## Fontos:
+
+- Builder használatához először a products oldalon hozzá kell adni a termékeket
+- Storage-et még nem vittem fel, a szűrő se működik még products oldalon, pls nézd már el xD
+
+## Fontos
+
 ## Development server
 
 To start a local development server, run:

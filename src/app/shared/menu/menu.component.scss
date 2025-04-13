@@ -1,0 +1,154 @@
+// menu.component.scss
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  height: 1rem;
+  position: relative;
+  z-index: 100;
+  font-family: 'Inter', sans-serif;
+
+  // Override Material toolbar default styles
+  &.mat-toolbar {
+    background: transparent;
+    height: auto;
+  }
+
+  &__logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000000;
+
+    span {
+      color: #00d4ff;
+    }
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  &__links {
+    list-style: none;
+    display: flex;
+    align-items: center; // Ensure vertical centering
+    gap: 2rem;
+
+    a.mat-button {
+      position: relative;
+      display: inline-flex; // Changed to inline-flex for better alignment
+      align-items: center; // Center text vertically
+      color: #000000;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      line-height: normal;
+      padding: 0;
+      min-width: 0;
+      height: auto; // Allow natural height
+      font-size: 1rem; // Base font size
+
+      // Override Material button styles
+      &.mat-mdc-button {
+        .mdc-button__label {
+          font-weight: 500;
+        }
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 100%;
+        height: 2px;
+        background-color: #00d4ff;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover {
+        color: #00d4ff;
+        cursor: pointer;
+      }
+
+      &:hover::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  &__toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+
+    span {
+      width: 24px;
+      height: 2px;
+      background: #000000;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+
+      &.open:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      &.open:nth-child(2) {
+        opacity: 0;
+      }
+
+      &.open:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    &__links.desktop {
+      display: none;
+    }
+
+    &__toggle {
+      display: flex;
+    }
+  }
+
+  // Desktop specific styles for larger text
+  @media (min-width: 769px) {
+    &__links {
+      a.mat-button {
+        font-size: 1.1rem; // Larger font size for desktop
+      }
+    }
+
+    height: 1.5rem; // Slightly increase height on desktop
+
+    &__logo {
+      font-size: 1.7rem; // Larger logo size on desktop
+    }
+  }
+}
+
+// Improve vertical centering by adjusting the toolbar
+::ng-deep .mat-toolbar-row,
+::ng-deep .mat-toolbar-single-row {
+  height: auto !important;
+  display: flex;
+  align-items: center;
+}
+
+// Ensure buttons have correct vertical alignment
+::ng-deep .mat-mdc-button {
+  line-height: 1.5 !important;
+}

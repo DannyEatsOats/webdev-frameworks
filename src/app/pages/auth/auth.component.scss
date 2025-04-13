@@ -1,0 +1,36 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  background: #ffffff;
+
+  .auth-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    width: 30rem;
+    text-align: center;
+
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+    .switch-msg {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+
+      button {
+        background: none;
+        border: none;
+        color: #00b5e0;
+        cursor: pointer;
+        text-decoration: underline;
+        margin-left: 0.25rem;
+        font-weight: 500;
+      }
+    }
+  }
+}

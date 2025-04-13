@@ -1,0 +1,70 @@
+/* Style for full-width form fields */
+mat-form-field.full-width {
+  width: 100%;
+  /* Ensure mat-form-field takes up the full width of its container */
+  margin: 1rem 0;
+  /* Add spacing between the fields */
+}
+
+mat-form-field {
+  display: block;
+  /* Ensure mat-form-field takes the full space available */
+}
+
+/* Adjust styling of mat-input inside the mat-form-field */
+mat-form-field input.mat-input-element {
+  font-size: 1rem;
+  /* Adjust font size */
+  padding: 0.5rem 0.75rem;
+  /* Adjust padding inside input */
+}
+
+/* Style the register button */
+button.mat-raised-button {
+  width: 100%;
+  height: 2.5rem;
+  align-content: center;
+  border-radius: 8px;
+  font-weight: bold;
+  background: #00b5e0;
+  color: white;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button.mat-raised-button:hover {
+  background: #009ac7;
+}
+
+/* Customize the visibility toggle button */
+button[mat-icon-button] {
+  position: absolute;
+  align-items: center;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  mat-icon {
+    font-size: 1.25rem;
+    top: 15%;
+    bottom: 15%;
+  }
+}
+
+/* Container styles for the form */
+form.register-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center the form content */
+  width: 100%;
+  max-width: 400px;
+  /* Limit max width of form */
+  margin: 0 auto;
+  /* Center the form horizontally */
+}

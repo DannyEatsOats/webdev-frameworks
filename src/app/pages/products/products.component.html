@@ -1,0 +1,38 @@
+<div class="products-page">
+  <aside class="filters">
+    <h2>Filter</h2>
+
+    <div class="filter-section">
+      <h4>Price Range</h4>
+      <div class="price-range">
+        <label for="min-price">Min Price</label>
+        <input type="number" id="min-price" min="0" placeholder="0" />
+
+        <label for="max-price">Max Price</label>
+        <input type="number" id="max-price" max="5000" placeholder="5000" />
+      </div>
+      <p>Showing items from \${{ minPrice }} to \${{ maxPrice }}</p>
+    </div>
+    <div class="filter-section">
+      <h4>Component</h4>
+      <label class="checkbox"> <input type="checkbox" /> CPU </label>
+      <label class="checkbox"> <input type="checkbox" /> GPU </label>
+      <label class="checkbox"> <input type="checkbox" /> RAM </label>
+      <label class="checkbox"> <input type="checkbox" /> Motherboard </label>
+      <label class="checkbox"> <input type="checkbox" /> Case </label>
+    </div>
+  </aside>
+
+  <section class="product-list">
+    <div class="product-card" *ngFor="let product of products">
+      <div class="image">
+        <img [src]="product.imageUrl" alt="{{ product.name }}" />
+      </div>
+
+      <h3>{{ product.name }}</h3>
+      <p class="desc">{{ product.description }}</p>
+      <p class="price">{{ product.getPriceWithCurrency() }}</p>
+      <button class="btn primary">Add to Build</button>
+    </div>
+  </section>
+</div>

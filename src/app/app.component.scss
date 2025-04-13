@@ -1,0 +1,47 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.sidenav-container {
+  flex: 1;
+
+  // Make material container transparent
+  &.mat-drawer-container {
+    background-color: transparent;
+  }
+}
+
+.sidenav {
+  width: 250px;
+
+  &.mat-drawer {
+    background: rgba(30, 30, 30, 0.9);
+    backdrop-filter: blur(8px);
+    border-radius: 0 12px 12px 0;
+  }
+}
+
+.sidenav-content {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 2rem;
+  gap: 1.5rem;
+
+  a {
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #00d4ff;
+    }
+  }
+}
+
+.main-content {
+  padding: 16px;
+}

@@ -1,0 +1,57 @@
+:host {
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+  background-color: #f9fafb;
+}
+
+mat-card {
+  width: 100%;
+  max-width: 640px;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  background-color: #ffffff;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  h2 {
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    gap: 0.5rem;
+    color: #333;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    mat-form-field {
+      width: 100%;
+
+      ::ng-deep .mat-form-field-outline {
+        border-radius: 10px;
+      }
+
+      ::ng-deep .mat-input-element {
+        padding: 0.75rem;
+      }
+    }
+  }
+
+  button {
+    margin-top: 2rem;
+    align-self: flex-end;
+    padding: 0.75rem 2rem;
+    font-weight: 500;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+}

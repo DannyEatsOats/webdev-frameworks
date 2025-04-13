@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "PcSwapper": {
+    "Polarex": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "PcSwapper:build:production"
+              "buildTarget": "Polarex:build:production"
             },
             "development": {
-              "buildTarget": "PcSwapper:build:development"
+              "buildTarget": "Polarex:build:development"
             }
           },
           "defaultConfiguration": "development"

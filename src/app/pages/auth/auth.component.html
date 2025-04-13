@@ -1,0 +1,18 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>{{ isLogin ? "Welcome Back" : "Create an Account" }}</h2>
+
+    <div>
+      <!-- Apply animation trigger here -->
+      <app-login *ngIf="isLogin"></app-login>
+      <app-register *ngIf="!isLogin"></app-register>
+    </div>
+
+    <p class="switch-msg">
+      {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
+      <button (click)="toggleForm()">
+        {{ isLogin ? "Register" : "Login" }}
+      </button>
+    </p>
+  </div>
+</div>

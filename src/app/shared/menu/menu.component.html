@@ -1,0 +1,20 @@
+<mat-toolbar class="nav">
+  <div class="nav__logo">Polarex<span>.</span></div>
+
+  <div class="spacer"></div>
+
+  <div class="nav__links desktop">
+    <a mat-button routerLink="/" routerLinkActive="active">Home</a>
+    <a mat-button routerLink="/products" routerLinkActive="active">Products</a>
+    <a mat-button routerLink="/builder" routerLinkActive="active">Builder</a>
+    <a mat-button routerLink="/profile" routerLinkActive="active">Profile</a>
+    <a mat-button routerLink="/auth" routerLinkActive="active">Log In</a>
+    <a mat-button routerLink="/logout" routerLinkActive="active">Log Out</a>
+  </div>
+
+  <div class="nav__toggle" [class.open]="isMenuOpen" (click)="toggleMenu()">
+    <span [class.open]="isMenuOpen"></span>
+    <span [class.open]="isMenuOpen"></span>
+    <span [class.open]="isMenuOpen"></span>
+  </div>
+</mat-toolbar>

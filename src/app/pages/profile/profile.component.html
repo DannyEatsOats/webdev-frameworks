@@ -1,0 +1,30 @@
+<mat-card>
+  <h2><mat-icon>person</mat-icon> Profile</h2>
+
+  <form [formGroup]="profileForm" class="form-group">
+    <mat-form-field appearance="outline">
+      <mat-label>Full Name</mat-label>
+      <input matInput formControlName="fullName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone" type="tel" />
+    </mat-form-field>
+
+    <!-- Read-only Date of Birth -->
+    <mat-form-field appearance="outline" disabled>
+      <mat-label>Date of Birth</mat-label>
+      <input matInput [value]="user?.dateOfBirth | date: 'longDate'" readonly />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="onSave()">
+      <mat-icon>save</mat-icon> Save Changes
+    </button>
+  </form>
+</mat-card>

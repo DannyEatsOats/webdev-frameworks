@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Product } from '../../models/product.model';
+import { ProductCardComponent } from '../product-card/product-card.component';
 import { CPU } from '../../models/cpu.model';
 import { GPU } from '../../models/gpu.model';
 import { BuildService } from '../../services/build.service';
@@ -9,7 +10,7 @@ import { BuildService } from '../../services/build.service';
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ProductCardComponent],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })

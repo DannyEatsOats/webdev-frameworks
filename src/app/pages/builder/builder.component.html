@@ -1,0 +1,40 @@
+<div class="builder-page">
+  <div class="build-form" *ngFor="let build of [build1, build2]; let i = index">
+    <h2>Build {{ i + 1 }}</h2>
+    <input [(ngModel)]="build.name" placeholder="Build Name" />
+
+    <!-- Dropdown for each category -->
+    <div
+      class="component-select"
+      *ngFor="
+        let type of [
+          ProductType.CPU,
+          ProductType.GPU,
+          ProductType.RAM,
+          ProductType.MOTHERBOARD,
+          ProductType.CASE,
+          ProductType.STORAGE,
+        ]
+      "
+    >
+      <label>{{ type }}</label>
+      <select [(ngModel)]="build.selected[type]">
+        <option [ngValue]="null">Select {{ type }}</option>
+        <option
+          *ngFor="let product of getProductsByType(type)"
+          [ngValue]="product"
+        >
+          {{ product.name }} - {{ product.getPriceWithCurrency() }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Price Assessment -->
+    <div class="assessment">
+      <p>
+        <strong>Total Price: </strong
+        >{{ calculateTotalPrice(build) | currency }}
+      </p>
+    </div>
+  </div>
+</div>

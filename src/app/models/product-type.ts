@@ -2,6 +2,7 @@ export enum ProductType {
   CPU = 'CPU',
   GPU = 'GPU',
   CASE = 'CASE',
-  MONITOR = 'MONITOR',
+  RAM = 'RAM',
+  MOTHERBOARD = 'MOTHERBOARD',
   STORAGE = 'STORAGE',
 }

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Polarex": {
+    "polarex": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Polarex:build:production"
+              "buildTarget": "polarex:build:production"
             },
             "development": {
-              "buildTarget": "Polarex:build:development"
+              "buildTarget": "polarex:build:development"
             }
           },
           "defaultConfiguration": "development"

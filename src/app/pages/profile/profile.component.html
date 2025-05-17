@@ -1,7 +1,7 @@
 <mat-card>
   <h2><mat-icon>person</mat-icon> Profile</h2>
 
-  <form [formGroup]="profileForm" class="form-group">
+  <form [formGroup]="profileForm" class="form-group" (ngSubmit)="onSave()">
     <mat-form-field appearance="outline">
       <mat-label>Full Name</mat-label>
       <input matInput formControlName="fullName" />
@@ -23,7 +23,7 @@
       <input matInput [value]="user?.dateOfBirth | date: 'longDate'" readonly />
     </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="onSave()">
+    <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid">
       <mat-icon>save</mat-icon> Save Changes
     </button>
   </form>

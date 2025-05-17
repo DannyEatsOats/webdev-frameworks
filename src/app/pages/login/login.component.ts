@@ -18,7 +18,6 @@ export class LoginComponent {
 
   login() {
     console.log('Logging in with:', this.username, this.password);
-    // Add login logic here
   }
 }
 

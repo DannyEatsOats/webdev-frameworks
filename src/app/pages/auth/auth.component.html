@@ -3,7 +3,6 @@
     <h2>{{ isLogin ? "Welcome Back" : "Create an Account" }}</h2>
 
     <div>
-      <!-- Apply animation trigger here -->
       <app-login *ngIf="isLogin"></app-login>
       <app-register *ngIf="!isLogin"></app-register>
     </div>

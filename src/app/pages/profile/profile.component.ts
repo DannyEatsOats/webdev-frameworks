@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../shared/service/auth.service';  // Adjust path if needed
 import { Subscription } from 'rxjs';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-profile',
@@ -24,15 +25,10 @@ import { Subscription } from 'rxjs';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   profileForm: FormGroup;
   userSubscription?: Subscription;
-  user = {
-    fullName: '',
-    email: '',
-    phone: '',
-    dateOfBirth: new Date(1990, 5, 15), // default/fallback value
-  };
+  user: User | null = null;  // Using the updated User model type
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.profileForm = this.fb.group({
@@ -43,17 +39,15 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userSubscription = this.authService.currentUser.subscribe(user => {
+    this.userSubscription = this.authService.user.subscribe(user => {
       if (user) {
-        this.user.email = user.email ?? '';
-        this.user.fullName = user.displayName ?? '';
-        this.user.phone = user.phoneNumber ?? '';
+        this.user = user;
 
-        // Patch the form values with the user info
+        // Patch the form values dynamically
         this.profileForm.patchValue({
-          fullName: this.user.fullName,
-          email: this.user.email,
-          phone: this.user.phone,
+          fullName: this.user.name ?? '',
+          email: this.user.email ?? '',
+          phone: this.user.phoneNum ?? '',
         });
       } else {
         // No user logged in - clear form or redirect
@@ -63,9 +57,15 @@ export class ProfileComponent implements OnInit {
   }
 
   onSave() {
-    if (this.profileForm.valid) {
-      console.log('Profile saved:', this.profileForm.value);
-      // TODO: Implement save logic (e.g., update Firebase profile or DB)
+    if (this.profileForm.valid && this.user) {
+      const updatedUserData: Partial<User> = {
+        name: this.profileForm.value.fullName,
+        email: this.profileForm.value.email,
+        phoneNum: this.profileForm.value.phone,
+      };
+
+      // Update user data in Firestore (assuming updateUser method exists in AuthService)
+      console.log('Profile saved:', updatedUserData);
     }
   }
 

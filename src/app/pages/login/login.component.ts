@@ -36,7 +36,9 @@ export class LoginComponent {
     this.authService.signIn(this.username, this.password)
       .then(() => {
         this.authService.updateLoginStatus(true);
-        this.router.navigateByUrl('/dashboard');
+      })
+      .then(() => {
+        this.router.navigateByUrl('/profile');
       })
       .catch(error => {
         this.errorMessage = this.getErrorMessage(error.code);

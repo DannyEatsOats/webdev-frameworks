@@ -23,7 +23,12 @@
       <input matInput [value]="user?.dateOfBirth | date: 'longDate'" readonly />
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="profileForm.invalid"
+    >
       <mat-icon>save</mat-icon> Save Changes
     </button>
   </form>

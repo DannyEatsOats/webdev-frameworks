@@ -46,7 +46,6 @@ export class LoginComponent {
   }
 
   private getErrorMessage(errorCode: string): string {
-    console.log(errorCode);
     switch (errorCode) {
       case 'auth/invalid-email':
         return 'The email address is not valid.';

@@ -16,16 +16,39 @@ import { BuildService } from '../../services/build.service';
 export class ProductsComponent implements OnInit {
   minPrice = 0;
   maxPrice = 5000;
-  sliderValue = 2500;
+  selectedCategories: Set<string> = new Set();
   products: Product[] = [];
 
   constructor(private productService: ProductService, private buildService: BuildService) { }
 
   ngOnInit(): void {
+    this.loadProducts(); // Default product loading
+  }
+
+  loadProducts(): void {
     this.productService.getProducts().subscribe(products => {
       this.products = products;
       console.log('Loaded products from Firestore:', this.products);
     });
+  }
+
+  applyFilters(): void {
+    this.productService.getFilteredProducts(this.minPrice, this.maxPrice, Array.from(this.selectedCategories))
+      .subscribe(products => {
+        this.products = products;
+        console.log('Filtered products from Firestore:', this.products);
+      });
+  }
+
+  updateFilters(category: string, event: Event): void {
+    const target = event.target as HTMLInputElement;
+    if (target?.checked !== undefined) {
+      if (target.checked) {
+        this.selectedCategories.add(category);
+      } else {
+        this.selectedCategories.delete(category);
+      }
+    }
   }
 
   addToBuild(product: Product) {

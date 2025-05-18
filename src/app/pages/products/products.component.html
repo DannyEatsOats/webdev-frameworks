@@ -23,17 +23,38 @@
           placeholder="5000"
         />
       </div>
-      <p>Showing items from ${{ minPrice }} to ${{ maxPrice }}</p>
+      <p>Showing items from ${{ minPrice ?? 0 }} to ${{ maxPrice ?? 5000 }}</p>
     </div>
 
     <div class="filter-section">
       <h4>Component</h4>
-      <label class="checkbox"> <input type="checkbox" /> CPU </label>
-      <label class="checkbox"> <input type="checkbox" /> GPU </label>
-      <label class="checkbox"> <input type="checkbox" /> RAM </label>
-      <label class="checkbox"> <input type="checkbox" /> Motherboard </label>
-      <label class="checkbox"> <input type="checkbox" /> Case </label>
+      <label class="checkbox">
+        <input type="checkbox" (change)="updateFilters('CPU', $event)" />
+        CPU
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" (change)="updateFilters('GPU', $event)" />
+        GPU
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" (change)="updateFilters('RAM', $event)" />
+        RAM
+      </label>
+      <label class="checkbox">
+        <input
+          type="checkbox"
+          (change)="updateFilters('MOTHERBOARD', $event)"
+        />
+        Motherboard
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" (change)="updateFilters('CASE', $event)" />
+        Case
+      </label>
     </div>
+
+    <!-- Submit Button to Apply Filters -->
+    <button (click)="applyFilters()">Apply Filters</button>
   </aside>
 
   <section class="product-list">

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, docData, doc } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, query, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from '../../models/product.model';
@@ -23,15 +23,30 @@ export class ProductService {
     );
   }
 
-  // Fetch a single product by ID
-  getProductById(productId: string): Observable<Product | null> {
-    const productRef = doc(this.firestore, `products/${productId}`);
-    return docData(productRef, { idField: 'id' }).pipe(
-      map(product => product ? this.mapProductToClass(product) : null)
+  // Fetch products with filtering
+  getFilteredProducts(minPrice: number, maxPrice: number, selectedCategories: string[]): Observable<Product[]> {
+    if ((!minPrice && !maxPrice && selectedCategories.length === 0)) {
+      console.log('zsaaaa');
+      return this.getProducts();
+    }
+
+    let filters = [];
+
+    if (minPrice) filters.push(where('price', '>=', minPrice));
+    if (maxPrice) filters.push(where('price', '<=', maxPrice));
+
+    // Apply category filter only if categories are selected
+    if (selectedCategories.length > 0) {
+      filters.push(where('category', 'in', selectedCategories));
+    }
+
+    const productsRef = query(collection(this.firestore, 'products'), ...filters);
+
+    return collectionData(productsRef, { idField: 'id' }).pipe(
+      map(products => products.map(product => this.mapProductToClass(product)))
     );
   }
 
-  // Maps Firestore document data to the appropriate Product subclass
   private mapProductToClass(productData: any): Product {
     switch (productData.category) {
       case 'CPU':
@@ -56,7 +71,7 @@ export class ProductService {
           productData.imageUrl,
           productData.category
         );
-      case 'Motherboard':
+      case 'MOTHERBOARD':
         return new Motherboard(
           productData.id,
           productData.name,
@@ -76,7 +91,7 @@ export class ProductService {
           productData.imageUrl,
           productData.category
         );
-      case 'Case':
+      case 'CASE':
         return new Case(
           productData.id,
           productData.name,
@@ -87,7 +102,7 @@ export class ProductService {
           productData.category
         );
       default:
-        return productData as Product; // Fallback for unknown categories
+        return productData as Product;
     }
   }
 }

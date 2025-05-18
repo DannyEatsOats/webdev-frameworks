@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, query, where } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, getDoc, query, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from '../../models/product.model';
@@ -23,6 +23,12 @@ export class ProductService {
     );
   }
 
+  async getProductById(productId: string): Promise<Product | null> {
+    const productRef = doc(this.firestore, `products/${productId}`);
+    const productSnapshot = await getDoc(productRef);
+
+    return productSnapshot.exists() ? productSnapshot.data() as Product : null;
+  }
   // Fetch products with filtering
   getFilteredProducts(minPrice: number, maxPrice: number, selectedCategories: string[]): Observable<Product[]> {
     if ((!minPrice && !maxPrice && selectedCategories.length === 0)) {

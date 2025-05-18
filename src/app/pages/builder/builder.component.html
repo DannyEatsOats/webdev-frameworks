@@ -1,6 +1,17 @@
 <div class="builder-page">
   <div class="build-form" *ngFor="let build of [build1, build2]; let i = index">
     <h2>Build {{ i + 1 }}</h2>
+
+    <div class="component-select">
+      <label>Select Saved Build</label>
+      <select (change)="loadBuild($event, build)">
+        <option [ngValue]="null">Select a Build</option>
+        <option *ngFor="let savedBuild of userBuilds" [ngValue]="savedBuild.id">
+          {{ savedBuild.name }}
+        </option>
+      </select>
+    </div>
+
     <input [(ngModel)]="build.name" placeholder="Build Name" />
 
     <div
@@ -12,7 +23,6 @@
           ProductType.RAM,
           ProductType.MOTHERBOARD,
           ProductType.CASE,
-          ProductType.STORAGE,
         ]
       "
     >
@@ -20,10 +30,10 @@
       <select [(ngModel)]="build.selected[type]">
         <option [ngValue]="null">Select {{ type }}</option>
         <option
-          *ngFor="let product of getProductsByType(type)"
+          *ngFor="let product of availableProducts[type]"
           [ngValue]="product"
         >
-          {{ product.name }} - {{ product.getPriceWithCurrency() }}
+          {{ product.name }}
         </option>
       </select>
     </div>
@@ -34,5 +44,7 @@
         >{{ calculateTotalPrice(build) | currency }}
       </p>
     </div>
+
+    <button (click)="saveBuild(build)">Save Build</button>
   </div>
 </div>

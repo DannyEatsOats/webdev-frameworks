@@ -9,6 +9,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../shared/service/auth.service';
 import { Subscription } from 'rxjs';
 import { User } from '../../models/user.model';
+import { Timestamp } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-profile',
@@ -35,6 +36,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       fullName: [''],
       email: [''],
       phone: [''],
+      dob: [''], // New Date of Birth Field
     });
   }
 
@@ -47,6 +49,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           fullName: this.user.name ?? '',
           email: this.user.email ?? '',
           phone: this.user.phoneNum ?? '',
+          dob: this.user.dob ? new Date(this.user.dob.seconds * 1000).toISOString().split('T')[0] : '', // Convert Firestore timestamp to date string
         });
       } else {
         this.profileForm.reset();
@@ -59,11 +62,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
       const updatedUserData: Partial<User> = {
         name: this.profileForm.value.fullName,
         phoneNum: this.profileForm.value.phone,
+        dob: Timestamp.fromDate(new Date(this.profileForm.value.dob)), // Convert input to Firestore Timestamp
       };
 
       this.authService.updateUserProfile(updatedUserData);
       alert('Profile saved!');
     }
+  }
+
+  formatDate(timestamp: any): string {
+    return timestamp?.seconds ? new Date(timestamp.seconds * 1000).toLocaleDateString() : '';
   }
 
   ngOnDestroy(): void {

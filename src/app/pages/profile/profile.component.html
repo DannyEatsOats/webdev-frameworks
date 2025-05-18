@@ -20,7 +20,7 @@
     <!-- Read-only Date of Birth -->
     <mat-form-field appearance="outline" disabled>
       <mat-label>Date of Birth</mat-label>
-      <input matInput [value]="user?.dateOfBirth | date: 'longDate'" readonly />
+      <input matInput [value]="formatDate(user?.dob)" readonly />
     </mat-form-field>
 
     <button

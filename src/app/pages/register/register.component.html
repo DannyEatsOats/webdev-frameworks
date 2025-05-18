@@ -13,12 +13,18 @@
     <mat-error *ngIf="!email">Email is required</mat-error>
   </mat-form-field>
 
+  <!-- Date of Birth Input -->
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Date of Birth</mat-label>
+    <input matInput type="date" [(ngModel)]="dob" name="dob" required />
+    <mat-error *ngIf="!dob">Date of birth is required</mat-error>
+  </mat-form-field>
+
   <!-- Password Input -->
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Password</mat-label>
     <input
       matInput
-      type="password"
       [(ngModel)]="password"
       name="password"
       [type]="hidePassword ? 'password' : 'text'"
@@ -39,7 +45,6 @@
     <mat-label>Confirm Password</mat-label>
     <input
       matInput
-      type="password"
       [(ngModel)]="confirmPassword"
       name="confirmPassword"
       [type]="hidePassword ? 'password' : 'text'"
@@ -59,6 +64,7 @@
     [disabled]="
       !username ||
       !email ||
+      !dob ||
       !password ||
       !confirmPassword ||
       password !== confirmPassword

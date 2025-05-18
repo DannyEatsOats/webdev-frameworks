@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../shared/service/auth.service';
+import { Timestamp } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-register',
@@ -28,6 +29,7 @@ export class RegisterComponent {
   email = '';
   password = '';
   confirmPassword = '';
+  dob: string = ''; // Date of Birth field
   hidePassword = true;  // For toggling password visibility
 
   constructor(private authService: AuthService) { }
@@ -38,9 +40,15 @@ export class RegisterComponent {
       return;
     }
 
+    if (!this.dob) {
+      alert('Date of birth is required!');
+      return;
+    }
+
     try {
       const userCredential = await this.authService.signUp(this.email, this.password, {
-        name: this.username
+        name: this.username,
+        dob: Timestamp.fromDate(new Date(this.dob)),
       });
 
       // If registration is successful, log the user in automatically

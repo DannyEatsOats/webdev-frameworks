@@ -29,7 +29,6 @@ export class BuildService {
       return;
     }
 
-    // Add product to its respective category
     this.selectedProducts[product.category].push(product);
     this.productsSubject.next({ ...this.selectedProducts });
   }
@@ -131,13 +130,11 @@ export class BuildService {
     }
 
     try {
-      // Find the build by name and user ID
       const buildsRef = collection(this.firestore, 'builds');
       const buildQuery = query(buildsRef, where('name', '==', buildName), where('userId', '==', user.uid));
       const querySnapshot = await getDocs(buildQuery);
 
       if (!querySnapshot.empty) {
-        // Get the first matching document and delete it
         const buildDocRef = querySnapshot.docs[0].ref;
         await deleteDoc(buildDocRef);
         return true;

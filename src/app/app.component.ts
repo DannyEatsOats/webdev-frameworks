@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import this
+import { AuthService } from './shared/service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -35,12 +36,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
     ReactiveFormsModule,
   ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'] // Notice you have styleUrls in plural, make sure this is correct
+  styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
   title = 'Polarex';
 
   @ViewChild('sidenav') sidenav!: MatSidenav;
+
+  constructor(public authService: AuthService) { }
 
   toggleSidenav() {
     if (this.sidenav) {
@@ -54,8 +58,12 @@ export class AppComponent {
     }
   }
 
+
+  logout() {
+    this.authService.signOut();
+  }
+
   onSidenavClosed() {
-    // You can add logic here if needed, like setting a flag
   }
 }
 

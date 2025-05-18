@@ -2,16 +2,59 @@
   <app-menu (menuToggle)="toggleSidenav()"></app-menu>
 
   <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #sidenav mode="over" class="sidenav" (closed)="onSidenavClosed()">
-      <div class="sidenav-content">
-        <a routerLink="/" routerLinkActive="active" (click)="closeSidenav()">Home</a>
-        <a routerLink="/products" routerLinkActive="active" (click)="closeSidenav()">Products</a>
-        <a routerLink="/builder" routerLinkActive="active" (click)="closeSidenav()">Builder</a>
-        <a routerLink="/profile" routerLinkActive="active" (click)="closeSidenav()">Profile</a>
-        <a routerLink="/auth" routerLinkActive="active" (click)="closeSidenav()">Auth</a>
-        <a routerLink="/login" routerLinkActive="active" (click)="closeSidenav()">Log In</a>
-        <a routerLink="/logout" routerLinkActive="active" (click)="closeSidenav()">Log Out</a>
+    <mat-sidenav
+      #sidenav
+      mode="over"
+      class="sidenav"
+      (closed)="onSidenavClosed()"
+    >
+      <div
+        class="sidenav-content"
+        *ngIf="authService.currentUser | async as user; else guestLinks"
+      >
+        <a routerLink="/" routerLinkActive="active" (click)="closeSidenav()"
+          >Home</a
+        >
+        <a
+          routerLink="/products"
+          routerLinkActive="active"
+          (click)="closeSidenav()"
+          >Products</a
+        >
+        <a
+          routerLink="/builder"
+          routerLinkActive="active"
+          (click)="closeSidenav()"
+          >Builder</a
+        >
+        <a
+          routerLink="/profile"
+          routerLinkActive="active"
+          (click)="closeSidenav()"
+          >Profile</a
+        >
+        <a (click)="logout()" class="logout-link">Log Out</a>
       </div>
+
+      <ng-template #guestLinks>
+        <div class="sidenav-content">
+          <a routerLink="/" routerLinkActive="active" (click)="closeSidenav()"
+            >Home</a
+          >
+          <a
+            routerLink="/products"
+            routerLinkActive="active"
+            (click)="closeSidenav()"
+            >Products</a
+          >
+          <a
+            routerLink="/auth"
+            routerLinkActive="active"
+            (click)="closeSidenav()"
+            >Log In</a
+          >
+        </div>
+      </ng-template>
     </mat-sidenav>
 
     <mat-sidenav-content>

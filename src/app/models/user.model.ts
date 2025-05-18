@@ -1,15 +1,17 @@
+import { Timestamp } from "@angular/fire/firestore";
+
 export class User {
   constructor(
     public id: string,
     public name: string,
     public email: string,
     public phoneNum: string,
-    public dateOfBirth: Date,
+    public dob: Timestamp,
     public role: 'admin' | 'user' | 'guest'
   ) { }
 
   getFormattedBirthDate(): string {
-    return this.dateOfBirth.toLocaleDateString();
+    return this.dob.toDate().toString();
   }
 
   isAdmin(): boolean {

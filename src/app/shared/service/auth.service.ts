@@ -55,7 +55,7 @@ export class AuthService {
               data.name,
               data.email,
               data.phoneNum,
-              data.dob?.seconds ? new Date(data.dob.seconds * 1000) : new Date(),
+              data.dob,
               data.role
             );
 

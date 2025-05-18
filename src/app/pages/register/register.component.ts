@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';  // Import MatInputModule
-import { MatButtonModule } from '@angular/material/button';  // Import MatButtonModule
-import { MatFormFieldModule } from '@angular/material/form-field';  // Import MatFormFieldModule
-import { MatIconModule } from '@angular/material/icon';  // Import MatIconModule for the eye icon (if used)
-import { ReactiveFormsModule } from '@angular/forms';  // Import ReactiveFormsModule for form validation
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../shared/service/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -29,14 +30,27 @@ export class RegisterComponent {
   confirmPassword = '';
   hidePassword = true;  // For toggling password visibility
 
-  register() {
+  constructor(private authService: AuthService) { }
+
+  async register() {
     if (this.password !== this.confirmPassword) {
-      console.log('Passwords do not match!');
+      alert('Passwords do not match!');
       return;
     }
 
-    console.log('Registering:', this.username, this.email, this.password);
-    // Implement registration logic here
+    try {
+      const userCredential = await this.authService.signUp(this.email, this.password, {
+        name: this.username
+      });
+
+      // If registration is successful, log the user in automatically
+      await this.authService.signIn(this.email, this.password);
+
+      alert('Registration successful! Logged in automatically.');
+      window.location.href = "/profile";
+    } catch (error) {
+      alert('Registration failed: ' + error);
+    }
   }
 }
 

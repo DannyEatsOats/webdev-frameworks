@@ -114,13 +114,12 @@ export class AuthService {
 
       return userCredential;
     } catch (error) {
-      console.error('Error during registration:', error);
       throw error;
     }
   }
 
   private async createUserData(userId: string, userData: Partial<User>): Promise<void> {
-    const userRef = doc(this.firestore, 'Users', userId);
+    const userRef = doc(this.firestore, 'users', userId);
     return setDoc(userRef, userData);
   }
 

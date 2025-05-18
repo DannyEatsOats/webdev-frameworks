@@ -128,9 +128,27 @@ export class BuilderComponent implements OnInit {
         return;
       }
     }
+
     const success = await this.buildService.saveBuild(build);
     if (!success) {
       alert('Build name already exists. Please choose a different name.');
+    } else {
+      window.location.reload();
+    }
+  }
+
+  async deleteBuild(build: any) {
+    if (!build.name) {
+      alert('No build selected for deletion.');
+      return;
+    }
+
+    const success = await this.buildService.deleteBuild(build.name);
+    if (success) {
+      alert(`Build "${build.name}" deleted successfully.`);
+      this.loadUserBuilds(); // Refresh the list after deletion
+    } else {
+      alert('Failed to delete build. Please try again.');
     }
   }
 }

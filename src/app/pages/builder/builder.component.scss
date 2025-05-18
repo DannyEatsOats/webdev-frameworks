@@ -43,6 +43,21 @@
       }
     }
 
+    .btn.primary {
+      margin-right: 1rem;
+      background-color: #00d4ff;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background-color: #00b5e0;
+      }
+    }
+
     .assessment {
       margin-top: 1rem;
       padding-top: 1rem;

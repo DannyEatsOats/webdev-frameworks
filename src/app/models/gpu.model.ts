@@ -3,7 +3,7 @@ import { ProductType } from './product-type';
 
 export class GPU implements Product {
   constructor(
-    public id: number,
+    public id: string,
     public name: string,
     public description: string,
     public price: number,

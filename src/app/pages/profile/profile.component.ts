@@ -60,10 +60,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (this.profileForm.valid && this.user) {
       const updatedUserData: Partial<User> = {
         name: this.profileForm.value.fullName,
-        email: this.profileForm.value.email,
         phoneNum: this.profileForm.value.phone,
       };
 
+      this.authService.updateUserProfile(updatedUserData);
       // Update user data in Firestore (assuming updateUser method exists in AuthService)
       console.log('Profile saved:', updatedUserData);
     }

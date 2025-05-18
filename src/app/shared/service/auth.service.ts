@@ -49,8 +49,6 @@ export class AuthService {
           switchMap((data: any) => {
             if (!data) return of(null);
 
-            console.log(data);
-
             // Convert Firestore object to User instance
             const formattedUser = new User(
               data.id,
@@ -61,7 +59,6 @@ export class AuthService {
               data.role
             );
 
-            console.log(formattedUser);
             return of(formattedUser);
           }),
           catchError(error => {
@@ -72,6 +69,24 @@ export class AuthService {
       })
     );
   }
+
+  async updateUserProfile(updatedUserData: Partial<User>): Promise<void> {
+    const user = this.auth.currentUser;
+    if (!user) {
+      throw new Error('No user logged in');
+    }
+
+    const userRef = doc(this.firestore, `users/${user.uid}`);
+
+    try {
+      await setDoc(userRef, updatedUserData, { merge: true });
+      console.log('User profile updated successfully');
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+      throw error;
+    }
+  }
+
   signIn(email: string, password: string): Promise<UserCredential> {
     return signInWithEmailAndPassword(this.auth, email, password);
   }

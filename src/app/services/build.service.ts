@@ -21,7 +21,7 @@ export class BuildService {
     return this.selectedProducts;
   }
 
-  removeProduct(id: number) {
+  removeProduct(id: string) {
     this.selectedProducts = this.selectedProducts.filter(p => p.id !== id);
     this.productsSubject.next(this.selectedProducts);
   }

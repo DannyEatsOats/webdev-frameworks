@@ -1,38 +1,57 @@
-// src/app/services/build.service.ts
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product.model';
 import { BehaviorSubject } from 'rxjs';
 import { addDoc, collection, deleteDoc, doc, Firestore, getDoc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { Auth } from '@angular/fire/auth';
+import { ProductType } from '../models/product-type';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BuildService {
-  private selectedProducts: Product[] = [];
+  private selectedProducts: { [key in ProductType]: Product[] } = {
+    [ProductType.CPU]: [],
+    [ProductType.GPU]: [],
+    [ProductType.CASE]: [],
+    [ProductType.RAM]: [],
+    [ProductType.MOTHERBOARD]: [],
+    [ProductType.STORAGE]: []
+  };
 
-  private productsSubject = new BehaviorSubject<Product[]>([]);
+  private productsSubject = new BehaviorSubject<{ [key in ProductType]: Product[] }>(this.selectedProducts);
   products$ = this.productsSubject.asObservable();
 
   constructor(private firestore: Firestore, private auth: Auth) { }
 
   addProduct(product: Product) {
-    this.selectedProducts.push(product);
-    this.productsSubject.next(this.selectedProducts);
+    if (!product || !product.category) {
+      console.warn('Invalid product.');
+      return;
+    }
+
+    // Add product to its respective category
+    this.selectedProducts[product.category].push(product);
+    this.productsSubject.next({ ...this.selectedProducts });
   }
 
-  getProducts(): Product[] {
+  getProducts(): { [key in ProductType]: Product[] } {
     return this.selectedProducts;
   }
 
   removeProduct(id: string) {
-    this.selectedProducts = this.selectedProducts.filter(p => p.id !== id);
-    this.productsSubject.next(this.selectedProducts);
+    for (const type in this.selectedProducts) {
+      this.selectedProducts[type as ProductType] = this.selectedProducts[type as ProductType].filter(p => p.id !== id);
+    }
+
+    this.productsSubject.next({ ...this.selectedProducts });
   }
 
   clear() {
-    this.selectedProducts = [];
-    this.productsSubject.next(this.selectedProducts);
+    Object.keys(this.selectedProducts).forEach(type => {
+      this.selectedProducts[type as ProductType] = [];
+    });
+
+    this.productsSubject.next({ ...this.selectedProducts });
   }
 
   async getUserBuilds(): Promise<any[]> {
@@ -121,14 +140,11 @@ export class BuildService {
         // Get the first matching document and delete it
         const buildDocRef = querySnapshot.docs[0].ref;
         await deleteDoc(buildDocRef);
-        console.log(`Build "${buildName}" deleted successfully.`);
         return true;
       } else {
-        console.warn('Build not found for deletion.');
         return false;
       }
     } catch (error) {
-      console.error('Error deleting build:', error);
       return false;
     }
   }

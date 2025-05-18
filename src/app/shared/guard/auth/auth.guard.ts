@@ -14,7 +14,6 @@ export const authGuard: CanActivateFn = (route, state) => {
         return true;
       }
 
-      console.log('Access denied - Not authenticated');
       router.navigate(['/login']);
       return false;
     })
@@ -32,7 +31,6 @@ export const publicGuard: CanActivateFn = (route, state) => {
         return true;
       }
 
-      console.log('Already authenticated, redirecting to home');
       router.navigate(['/home']);
       return false;
     })

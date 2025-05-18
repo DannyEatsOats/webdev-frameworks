@@ -32,6 +32,9 @@ export class BuilderComponent implements OnInit {
   ngOnInit(): void {
     this.loadUserBuilds();
     //this.loadProductsByCategory();
+    this.buildService.products$.subscribe(updatedProducts => {
+      this.availableProducts = updatedProducts;
+    });
   }
 
   createEmptyBuild(): { [key in ProductType]: Product | null } {
@@ -122,7 +125,6 @@ export class BuilderComponent implements OnInit {
 
   async saveBuild(build: any) {
     for (var item in build.selected) {
-      console.log(item + " " + build.selected[item]);
       if (build.selected[item] === null && item !== ProductType.STORAGE) {
         alert('Not all slots are filled in the build');
         return;

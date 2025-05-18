@@ -28,7 +28,6 @@ export class ProductsComponent implements OnInit {
   loadProducts(): void {
     this.productService.getProducts().subscribe(products => {
       this.products = products;
-      console.log('Loaded products from Firestore:', this.products);
     });
   }
 
@@ -36,7 +35,6 @@ export class ProductsComponent implements OnInit {
     this.productService.getFilteredProducts(this.minPrice, this.maxPrice, Array.from(this.selectedCategories))
       .subscribe(products => {
         this.products = products;
-        console.log('Filtered products from Firestore:', this.products);
       });
   }
 
@@ -53,7 +51,7 @@ export class ProductsComponent implements OnInit {
 
   addToBuild(product: Product) {
     this.buildService.addProduct(product);
-    console.log('Added to build:', product);
+    alert('Added to build: ' + product.name);
   }
 }
 

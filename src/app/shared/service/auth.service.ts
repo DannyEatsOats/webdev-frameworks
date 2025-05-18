@@ -62,7 +62,6 @@ export class AuthService {
             return of(formattedUser);
           }),
           catchError(error => {
-            console.error('Error fetching user data:', error);
             return of(null);
           })
         );
@@ -80,9 +79,7 @@ export class AuthService {
 
     try {
       await setDoc(userRef, updatedUserData, { merge: true });
-      console.log('User profile updated successfully');
     } catch (error) {
-      console.error('Error updating user profile:', error);
       throw error;
     }
   }

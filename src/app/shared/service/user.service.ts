@@ -11,7 +11,6 @@ import { User } from '../../models/user.model';
 export class UserService {
   constructor(private auth: Auth, private firestore: Firestore) { }
 
-  // Method to update user profile in Firestore
   async updateUserProfile(updatedUserData: Partial<User>): Promise<void> {
     const user = this.auth.currentUser;
     if (!user) {
@@ -22,14 +21,11 @@ export class UserService {
 
     try {
       await setDoc(userRef, updatedUserData, { merge: true });
-      console.log('User profile updated successfully');
     } catch (error) {
-      console.error('Error updating user profile:', error);
       throw error;
     }
   }
 
-  // Method to fetch user data from Firestore
   getUserData(): Observable<User | null> {
     return new Observable((observer) => {
       const user = this.auth.currentUser;
@@ -49,8 +45,6 @@ export class UserService {
         }
         observer.complete();
       }).catch((error) => {
-        console.error('Error fetching user data:', error);
-        observer.next(null);
         observer.complete();
       });
     });

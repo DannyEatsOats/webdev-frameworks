@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
-import { AuthService } from '../../shared/service/auth.service';  // Adjust path if needed
+import { AuthService } from '../../shared/service/auth.service';
 import { Subscription } from 'rxjs';
 import { User } from '../../models/user.model';
 
@@ -28,7 +28,7 @@ import { User } from '../../models/user.model';
 export class ProfileComponent implements OnInit, OnDestroy {
   profileForm: FormGroup;
   userSubscription?: Subscription;
-  user: User | null = null;  // Using the updated User model type
+  user: User | null = null;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.profileForm = this.fb.group({
@@ -43,14 +43,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
       if (user) {
         this.user = user;
 
-        // Patch the form values dynamically
         this.profileForm.patchValue({
           fullName: this.user.name ?? '',
           email: this.user.email ?? '',
           phone: this.user.phoneNum ?? '',
         });
       } else {
-        // No user logged in - clear form or redirect
         this.profileForm.reset();
       }
     });
@@ -64,8 +62,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       };
 
       this.authService.updateUserProfile(updatedUserData);
-      // Update user data in Firestore (assuming updateUser method exists in AuthService)
-      console.log('Profile saved:', updatedUserData);
+      alert('Profile saved!');
     }
   }
 
